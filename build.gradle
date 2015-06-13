@@ -1,0 +1,53 @@
+buildscript { 
+    repositories { 
+        mavenCentral() 
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.14.+'
+    }
+}
+
+apply plugin: 'android'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile project(':GameCenterSDK_FYTX')
+}
+
+android { 
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    sourceSets { 
+        main { 
+            manifest.srcFile 'AndroidManifest.xml' 
+            java.srcDirs = ['src'] 
+            resources.srcDirs = ['src'] 
+            aidl.srcDirs = ['src'] 
+            renderscript.srcDirs = ['src'] 
+            res.srcDirs = ['res'] 
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        } 
+    }
+
+    lintOptions { 
+        abortOnError false 
+    } 
+    
+    signingConfigs { 
+        myConfig{ 
+            storeFile file("/Users/lcl/Documents/user.keystore")
+            storePassword "cm20150611" 
+            keyAlias "zszz" 
+            keyPassword "cm20150611" 
+        } 
+    } 
+    
+    buildTypes { 
+        release{ 
+            signingConfig signingConfigs.myConfig 
+        } 
+    }
+}
